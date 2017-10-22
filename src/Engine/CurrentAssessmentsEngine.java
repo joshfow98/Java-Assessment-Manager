@@ -11,21 +11,23 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Arrays;
-import assesment.manager.UI.CurrentAssesments;
+import assesment.manager.UI.CurrentAssessments;
 /**
  *
  * @author joshf
  */
-public class CurrentAssesmentsEngine {
+public class CurrentAssessmentsEngine {
     
     static ResultSet rs;
     /**
-     * access' assesment database, returns array with title of each assesment
+     * retrieve the ID's for each assessment to put output to be output 
+     * to the 
      * */
-    public static Assesment[] addTitles(){
+    public static int[] addIDs(){
        
-        int currentRecordNumber = 0, index = 0;
-        Assesment[] a = new Assesment[0];
+        int currentRecordNumber = 0, i = 0;
+        Assessment[] a = new Assessment[0];
+        int[] assessmentIDs = new int[0];
         
         try{
             
@@ -33,16 +35,10 @@ public class CurrentAssesmentsEngine {
             
             while(rs.next()){
                 
-                a = Arrays.copyOf(a, a.length + 1);
-                a[index] = new Assesment();
-                a[index].assesmentID = rs.getInt("assesment_id");
-                a[index].assesmentTitle = rs.getString("assesment_title");
-                a[index].assesmentModule = rs.getString("assesment_module");
-                a[index].assesmentDescription = rs.getString("assesment_description");
-                a[index].dateDue = rs.getDate("date_due");
-                a[index].reminderDate = rs.getDate("reminder_date");
+                assessmentIDs = Arrays.copyOf(assessmentIDs, assessmentIDs.length + 1);
+                assessmentIDs[i] = rs.getInt("assessment_id");
           
-                index += 1;
+                i += 1;
                 
             }
             
@@ -52,7 +48,7 @@ public class CurrentAssesmentsEngine {
             
         }
            
-        return a;
+        return assessmentIDs;
         
     }
     
@@ -62,17 +58,16 @@ public class CurrentAssesmentsEngine {
         Statement stmnt;
         String SQL;
         int currentRecordNumber = -1;
+        String host = "jdbc:derby://localhost:1527/assessments", uName = "assessments", uPass = "assessments";
         
-        String host = "jdbc:derby://localhost:1527/assesments", uName = "assesments", uPass = "assesments";
         try{
             
             con = DriverManager.getConnection(host, uName, uPass);
-            
             stmnt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             //stores the SQL statement to be made
             SQL = "SELECT * FROM ASSESMENTS.ASSESMENT";
             //stores results of the SQL statement, in this case all records
-            //from table ASSESMENT table
+            //from table ASSESSMENT table
             rs = stmnt.executeQuery(SQL);
             
             while(rs.next()){
@@ -91,9 +86,10 @@ public class CurrentAssesmentsEngine {
         return currentRecordNumber;
         
     }
-    public static Engine.Assesment getRecord(int assesmentID){
+    
+    public static Engine.Assessment getRecord(int assessmentID){
         
-        //Engine.Assesment record = new Engine.Assesment();
+        //Engine.Assessment record = new Engine.Assessment();
         boolean foundRecord = false;
         int i = -1;
         
@@ -101,7 +97,7 @@ public class CurrentAssesmentsEngine {
             
             i++;
             
-            if(a[i].assesmentID == assesmentID){
+            if(a[i].assessmentID == assessmentID){
                 
                 foundRecord = true;
                
@@ -112,13 +108,13 @@ public class CurrentAssesmentsEngine {
        return  a[i];
        
     }
-   /* public static Assesment getRecord(){
+   /* public static Assessment getRecord(){
         
         
         
-        Assesment a = new Assesment();
+        Assessment a = new Assessment();
         
-        return Assesment;
+        return Assessment;
         
     }*/
 }

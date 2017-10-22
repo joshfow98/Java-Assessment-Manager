@@ -91,7 +91,7 @@ public class Home extends javax.swing.JFrame {
     //opens the new assesment form and hise the current form
     private void btnNewAssesmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewAssesmentActionPerformed
         
-        NewAssesment na = new NewAssesment();
+        NewAssessment na = new NewAssessment();
         
         na.setVisible(true);
         this.setVisible(false);
@@ -109,7 +109,7 @@ public class Home extends javax.swing.JFrame {
     //opens the completed assesments form and hides current form
     private void btnCompletedAssesmentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompletedAssesmentsActionPerformed
         
-        CompletedAssesments ca = new CompletedAssesments();
+        CompletedAssessments ca = new CompletedAssessments();
         
         ca.setVisible(true);
         this.dispose();

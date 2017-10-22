@@ -39,7 +39,7 @@
                               <Component id="dpDateDue" alignment="0" pref="0" max="32767" attributes="0"/>
                               <Component id="jScrollPane2" alignment="0" pref="0" max="32767" attributes="0"/>
                           </Group>
-                          <Component id="cbAssesmentID" alignment="0" min="-2" pref="144" max="-2" attributes="0"/>
+                          <Component id="cbAssessmentID" alignment="0" min="-2" pref="144" max="-2" attributes="0"/>
                       </Group>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
@@ -73,7 +73,7 @@
                       <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="cbAssesmentID" min="-2" max="-2" attributes="0"/>
+                      <Component id="cbAssessmentID" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -110,10 +110,10 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JComboBox" name="cbAssesmentID">
+    <Component class="javax.swing.JComboBox" name="cbAssessmentID">
       <Events>
-        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="cbAssesmentIDItemStateChanged"/>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbAssesmentIDActionPerformed"/>
+        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="cbAssessmentIDItemStateChanged"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbAssessmentIDActionPerformed"/>
       </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Integer&gt;"/>
@@ -127,7 +127,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTextPane" name="tpAssesmentModule">
+        <Component class="javax.swing.JTextPane" name="tpAssessmentModule">
           <Properties>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
@@ -141,7 +141,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTextArea" name="taAssesmentDescription">
+        <Component class="javax.swing.JTextArea" name="taAssessmentDescription">
           <Properties>
             <Property name="columns" type="int" value="20"/>
             <Property name="rows" type="int" value="5"/>
@@ -162,27 +162,27 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Assesment Title"/>
+        <Property name="text" type="java.lang.String" value="Assessment Title"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Assesment Module"/>
+        <Property name="text" type="java.lang.String" value="Assessment Module"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Assesment Description"/>
+        <Property name="text" type="java.lang.String" value="Assessment Description"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Assesment Due Date "/>
+        <Property name="text" type="java.lang.String" value="Assessment Due Date "/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Assesment Reminder Date"/>
+        <Property name="text" type="java.lang.String" value="Assessment Reminder Date"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnSearch">
@@ -200,7 +200,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnCompleted">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Assignment Completed"/>
+        <Property name="text" type="java.lang.String" value="Assessment Completed"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane3">

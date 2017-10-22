@@ -5,7 +5,7 @@
  */
 package assesment.manager.UI;
 
-import Engine.CurrentAssesmentsEngine;
+import Engine.CurrentAssessmentsEngine;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -17,13 +17,13 @@ import java.text.SimpleDateFormat;
  *
  * @author joshf
  */
-public class CurrentAssesments extends javax.swing.JFrame {
+public class CurrentAssessments extends javax.swing.JFrame {
 
-    static Engine.Assesment[] a = new Engine.Assesment[0];
+    static Engine.Assessment[] a = new Engine.Assessment[0];
     /**
-     * Creates new form CurrentAssesments
+     * Creates new form CurrentAssessments
      */
-    public CurrentAssesments() {
+    public CurrentAssessments() {
         initComponents();
     }
 
@@ -36,11 +36,11 @@ public class CurrentAssesments extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        cbAssesmentID = new javax.swing.JComboBox<>();
+        cbAssessmentID = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tpAssesmentModule = new javax.swing.JTextPane();
+        tpAssessmentModule = new javax.swing.JTextPane();
         jScrollPane2 = new javax.swing.JScrollPane();
-        taAssesmentDescription = new javax.swing.JTextArea();
+        taAssessmentDescription = new javax.swing.JTextArea();
         dpDateDue = new org.jdatepicker.JDatePicker();
         dpReminderDate = new org.jdatepicker.JDatePicker();
         jLabel1 = new javax.swing.JLabel();
@@ -56,38 +56,38 @@ public class CurrentAssesments extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        cbAssesmentID.addItemListener(new java.awt.event.ItemListener() {
+        cbAssessmentID.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cbAssesmentIDItemStateChanged(evt);
+                cbAssessmentIDItemStateChanged(evt);
             }
         });
-        cbAssesmentID.addActionListener(new java.awt.event.ActionListener() {
+        cbAssessmentID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbAssesmentIDActionPerformed(evt);
+                cbAssessmentIDActionPerformed(evt);
             }
         });
 
-        tpAssesmentModule.setEnabled(false);
-        jScrollPane1.setViewportView(tpAssesmentModule);
+        tpAssessmentModule.setEnabled(false);
+        jScrollPane1.setViewportView(tpAssessmentModule);
 
-        taAssesmentDescription.setColumns(20);
-        taAssesmentDescription.setRows(5);
-        taAssesmentDescription.setEnabled(false);
-        jScrollPane2.setViewportView(taAssesmentDescription);
+        taAssessmentDescription.setColumns(20);
+        taAssessmentDescription.setRows(5);
+        taAssessmentDescription.setEnabled(false);
+        jScrollPane2.setViewportView(taAssessmentDescription);
 
         dpDateDue.setEnabled(false);
 
         dpReminderDate.setEnabled(false);
 
-        jLabel1.setText("Assesment Title");
+        jLabel1.setText("Assessment Title");
 
-        jLabel2.setText("Assesment Module");
+        jLabel2.setText("Assessment Module");
 
-        jLabel3.setText("Assesment Description");
+        jLabel3.setText("Assessment Description");
 
-        jLabel4.setText("Assesment Due Date ");
+        jLabel4.setText("Assessment Due Date ");
 
-        jLabel5.setText("Assesment Reminder Date");
+        jLabel5.setText("Assessment Reminder Date");
 
         btnSearch.setText("Search");
         btnSearch.addActionListener(new java.awt.event.ActionListener() {
@@ -98,7 +98,7 @@ public class CurrentAssesments extends javax.swing.JFrame {
 
         btnSave.setText("Save");
 
-        btnCompleted.setText("Assignment Completed");
+        btnCompleted.setText("Assessment Completed");
 
         jScrollPane3.setViewportView(lTitle);
 
@@ -121,7 +121,7 @@ public class CurrentAssesments extends javax.swing.JFrame {
                                 .addComponent(dpReminderDate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)
                                 .addComponent(dpDateDue, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                            .addComponent(cbAssesmentID, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cbAssessmentID, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(15, 15, 15)
@@ -145,7 +145,7 @@ public class CurrentAssesments extends javax.swing.JFrame {
                         .addComponent(btnSearch)
                         .addGap(2, 2, 2))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(cbAssesmentID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbAssessmentID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -177,17 +177,17 @@ public class CurrentAssesments extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cbAssesmentIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbAssesmentIDActionPerformed
+    private void cbAssessmentIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbAssessmentIDActionPerformed
         
         boolean recordFound = false;
-        int selectedRecord = (int) cbAssesmentID.getSelectedItem(), i = -1;
-        Engine.Assesment record = new Engine.Assesment();
+        int selectedRecord = (int) cbAssessmentID.getSelectedItem(), i = -1;
+        Engine.Assessment record = new Engine.Assessment();
         
         while(i < a.length){
             
             i++;
             
-            if(selectedRecord == a[i].assesmentID){
+            if(selectedRecord == a[i].assessmentID){
                 
                 record = a[i];
                 System.out.println("hey");
@@ -196,20 +196,20 @@ public class CurrentAssesments extends javax.swing.JFrame {
             }
             
         }
-    }//GEN-LAST:event_cbAssesmentIDActionPerformed
+    }//GEN-LAST:event_cbAssessmentIDActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnSearchActionPerformed
 
-    private void cbAssesmentIDItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbAssesmentIDItemStateChanged
+    private void cbAssessmentIDItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbAssessmentIDItemStateChanged
         
-        Engine.Assesment record = new Engine.Assesment();
+        Engine.Assessment record = new Engine.Assessment();
         
-        record = getRecord((int) cbAssesmentID.getSelectedItem());
+        record = getRecord((int) cbAssessmentID.getSelectedItem());
         
-        System.out.println(record.assesmentTitle);
-    }//GEN-LAST:event_cbAssesmentIDItemStateChanged
+        System.out.println(record.assessmentTitle);
+    }//GEN-LAST:event_cbAssessmentIDItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -228,13 +228,13 @@ public class CurrentAssesments extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CurrentAssesments.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CurrentAssessments.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CurrentAssesments.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CurrentAssessments.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CurrentAssesments.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CurrentAssessments.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CurrentAssesments.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CurrentAssessments.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         
@@ -242,45 +242,45 @@ public class CurrentAssesments extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CurrentAssesments().setVisible(true);
+                new CurrentAssessments().setVisible(true);
                 
-                addAssesmentTitle();
+                addAssessmentTitle();
                 
             }
         });
-        /*CurrentAssesmentsEngine cae = new CurrentAssesmentsEngine();
+        /*CurrentAssessmentsEngine cae = new CurrentAssessmentsEngine();
         
-        String[] assesmentTitles = new String[cae.arraySize() - 1];
+        String[] assessmentTitles = new String[cae.arraySize() - 1];
         
-        assesmentTitles = cae.addTitles();
+        assessmentTitles = cae.addTitles();
         
-        for(int i = 0; i < assesmentTitles.length - 1;i++){
+        for(int i = 0; i < assessmentTitles.length - 1;i++){
             
-            cbAssesmentTitle.addItem(assesmentTitles[i]);
+            cbAssessmentTitle.addItem(assessmentTitles[i]);
             
         }*/
         
         
     }
 
-    public static void addAssesmentTitle(){
+    public static void addAssessmentTitle(){
         
-        CurrentAssesmentsEngine cae = new CurrentAssesmentsEngine();
-        a = new Engine.Assesment[cae.arraySize() - 1];
+        CurrentAssessmentsEngine cae = new CurrentAssessmentsEngine();
+        int[] assessmentIDs = new int[cae.arraySize() - 1];
         
-        a = cae.addTitles();
+        assessmentIDs = cae.addIDs();
         
         for(int i = 0; i < a.length;i++){
             
-            cbAssesmentID.addItem(a[i].assesmentID);
+            cbAssessmentID.addItem(assessmentIDs[i]);
             
         }
         
     }
     
-    public static Engine.Assesment getRecord(int assesmentID){
+    public static Engine.Assessment getRecord(int assessmentID){
         
-        //Engine.Assesment record = new Engine.Assesment();
+        //Engine.Assessment record = new Engine.Assessment();
         boolean foundRecord = false;
         int i = -1;
         
@@ -288,7 +288,7 @@ public class CurrentAssesments extends javax.swing.JFrame {
             
             i++;
             
-            if(a[i].assesmentID == assesmentID){
+            if(a[i].assessmentID == assessmentID){
                 
                 foundRecord = true;
                
@@ -303,7 +303,7 @@ public class CurrentAssesments extends javax.swing.JFrame {
     private javax.swing.JButton btnCompleted;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnSearch;
-    private static javax.swing.JComboBox<Integer> cbAssesmentID;
+    private static javax.swing.JComboBox<Integer> cbAssessmentID;
     private org.jdatepicker.JDatePicker dpDateDue;
     private org.jdatepicker.JDatePicker dpReminderDate;
     private javax.swing.JLabel jLabel1;
@@ -315,7 +315,7 @@ public class CurrentAssesments extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JList<String> lTitle;
-    private javax.swing.JTextArea taAssesmentDescription;
-    private javax.swing.JTextPane tpAssesmentModule;
+    private javax.swing.JTextArea taAssessmentDescription;
+    private javax.swing.JTextPane tpAssessmentModule;
     // End of variables declaration//GEN-END:variables
 }

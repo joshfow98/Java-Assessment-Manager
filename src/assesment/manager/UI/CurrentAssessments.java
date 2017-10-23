@@ -11,7 +11,10 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
 /**
  *
@@ -41,18 +44,20 @@ public class CurrentAssessments extends javax.swing.JFrame {
         tpAssessmentModule = new javax.swing.JTextPane();
         jScrollPane2 = new javax.swing.JScrollPane();
         taAssessmentDescription = new javax.swing.JTextArea();
-        dpDateDue = new org.jdatepicker.JDatePicker();
-        dpReminderDate = new org.jdatepicker.JDatePicker();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        btnSearch = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
         btnCompleted = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tpAssessmentTitle = new javax.swing.JTextPane();
+        jLabel6 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        lTitle = new javax.swing.JList<>();
+        tpDateDue = new javax.swing.JTextPane();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        tpReminderDate = new javax.swing.JTextPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -67,40 +72,43 @@ public class CurrentAssessments extends javax.swing.JFrame {
             }
         });
 
-        tpAssessmentModule.setEnabled(false);
         jScrollPane1.setViewportView(tpAssessmentModule);
 
         taAssessmentDescription.setColumns(20);
         taAssessmentDescription.setRows(5);
-        taAssessmentDescription.setEnabled(false);
         jScrollPane2.setViewportView(taAssessmentDescription);
 
-        dpDateDue.setEnabled(false);
-
-        dpReminderDate.setEnabled(false);
-
-        jLabel1.setText("Assessment Title");
+        jLabel1.setText("Assessment ID");
 
         jLabel2.setText("Assessment Module");
 
         jLabel3.setText("Assessment Description");
 
-        jLabel4.setText("Assessment Due Date ");
+        jLabel4.setText("Assessment Due Date (yyyy-mm-dd) ");
 
-        jLabel5.setText("Assessment Reminder Date");
+        jLabel5.setText("Assessment Reminder Date (yyyy-mm-dd)");
 
-        btnSearch.setText("Search");
-        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+        btnSave.setText("Save");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSearchActionPerformed(evt);
+                btnSaveActionPerformed(evt);
             }
         });
 
-        btnSave.setText("Save");
-
         btnCompleted.setText("Assessment Completed");
+        btnCompleted.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCompletedActionPerformed(evt);
+            }
+        });
 
-        jScrollPane3.setViewportView(lTitle);
+        jScrollPane4.setViewportView(tpAssessmentTitle);
+
+        jLabel6.setText("Assessment Title");
+
+        jScrollPane3.setViewportView(tpDateDue);
+
+        jScrollPane5.setViewportView(tpReminderDate);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -111,27 +119,26 @@ public class CurrentAssessments extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel5)
+                                .addComponent(jLabel4)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(3, 3, 3)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel3)
+                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel2)
+                                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel6)))
+                                .addComponent(cbAssessmentID, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel4)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(dpReminderDate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)
-                                .addComponent(dpDateDue, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                            .addComponent(cbAssessmentID, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(15, 15, 15)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(btnSearch, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnSave, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnCompleted, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(21, 21, 21)
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnCompleted, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -140,38 +147,32 @@ public class CurrentAssessments extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnSearch)
-                        .addGap(2, 2, 2))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(cbAssessmentID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(5, 5, 5)
-                        .addComponent(jLabel3)
-                        .addGap(8, 8, 8)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(3, 3, 3)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(dpDateDue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(1, 1, 1)
-                        .addComponent(jLabel5))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(btnSave)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCompleted)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(1, 1, 1)
-                .addComponent(dpReminderDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbAssessmentID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSave))
+                .addGap(8, 8, 8)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(btnCompleted))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(13, 13, 13)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23))
         );
 
         pack();
@@ -179,7 +180,7 @@ public class CurrentAssessments extends javax.swing.JFrame {
 
     private void cbAssessmentIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbAssessmentIDActionPerformed
         
-        boolean recordFound = false;
+        /*boolean recordFound = false;
         int selectedRecord = (int) cbAssessmentID.getSelectedItem(), i = -1;
         Engine.Assessment record = new Engine.Assessment();
         
@@ -195,21 +196,66 @@ public class CurrentAssessments extends javax.swing.JFrame {
                 
             }
             
-        }
+        }*/
     }//GEN-LAST:event_cbAssessmentIDActionPerformed
-
-    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnSearchActionPerformed
 
     private void cbAssessmentIDItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbAssessmentIDItemStateChanged
         
         Engine.Assessment record = new Engine.Assessment();
+        Calendar cal = Calendar.getInstance();
+        record = Engine.CurrentAssessmentsEngine.getRecord((int) cbAssessmentID.getSelectedItem());
+      
+        tpAssessmentTitle.setText(record.assessmentTitle);
+        tpAssessmentModule.setText(record.assessmentModule);
+        taAssessmentDescription.setText(record.assessmentDescription);
+        tpDateDue.setText(record.dateDue.toString());
+        tpReminderDate.setText(record.reminderDate.toString());
         
-        record = getRecord((int) cbAssessmentID.getSelectedItem());
+        //section underneither useful for JDatePicker, maybe implement later
+        /*cal.setTime(record.dateDue);
+        dpDateDue.getModel().setDay(cal.get(Calendar.DATE));
+        dpDateDue.getModel().setMonth(cal.get(Calendar.MONTH));
+        dpDateDue.getModel().setYear(cal.get(Calendar.YEAR));
+        dpDateDue.getModel().setSelected(true);
+        cal.setTime(record.reminderDate);
+        dpReminderDate.getModel().setDay(cal.get(Calendar.DATE));
+        dpReminderDate.getModel().setMonth(cal.get(Calendar.MONTH));
+        dpReminderDate.getModel().setYear(cal.get(Calendar.YEAR));
+        dpReminderDate.getModel().setSelected(true);*/
         
-        System.out.println(record.assessmentTitle);
     }//GEN-LAST:event_cbAssessmentIDItemStateChanged
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        
+        Engine.Assessment record = new Engine.Assessment();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        
+        record.assessmentID = (int) cbAssessmentID.getSelectedItem();
+        record.assessmentTitle = tpAssessmentTitle.getText();
+        record.assessmentModule = tpAssessmentModule.getText();
+        record.assessmentDescription = taAssessmentDescription.getText();
+        try{
+            
+            record.dateDue = new java.sql.Date(sdf.parse(tpDateDue.getText()).getTime());
+            record.reminderDate = new java.sql.Date(sdf.parse(tpReminderDate.getText()).getTime());
+            
+        } catch (ParseException e){
+            
+            System.out.println(e);
+            
+        }
+        
+        Engine.CurrentAssessmentsEngine.updateRecord(record);
+        
+    }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void btnCompletedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompletedActionPerformed
+        
+        int assessmentID = (int) cbAssessmentID.getSelectedItem();
+        
+        Engine.CurrentAssessmentsEngine.assessmentCompleted(assessmentID);
+        
+    }//GEN-LAST:event_btnCompletedActionPerformed
 
     /**
      * @param args the command line arguments
@@ -242,23 +288,11 @@ public class CurrentAssessments extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+
                 new CurrentAssessments().setVisible(true);
-                
-                addAssessmentTitle();
                 
             }
         });
-        /*CurrentAssessmentsEngine cae = new CurrentAssessmentsEngine();
-        
-        String[] assessmentTitles = new String[cae.arraySize() - 1];
-        
-        assessmentTitles = cae.addTitles();
-        
-        for(int i = 0; i < assessmentTitles.length - 1;i++){
-            
-            cbAssessmentTitle.addItem(assessmentTitles[i]);
-            
-        }*/
         
         
     }
@@ -269,16 +303,16 @@ public class CurrentAssessments extends javax.swing.JFrame {
         int[] assessmentIDs = new int[cae.arraySize() - 1];
         
         assessmentIDs = cae.addIDs();
-        
-        for(int i = 0; i < a.length;i++){
-            
+
+        for(int i = 0; i < assessmentIDs.length;i++){
+
             cbAssessmentID.addItem(assessmentIDs[i]);
             
         }
         
     }
     
-    public static Engine.Assessment getRecord(int assessmentID){
+   /* public static Engine.Assessment getRecord(int assessmentID){
         
         //Engine.Assessment record = new Engine.Assessment();
         boolean foundRecord = false;
@@ -298,24 +332,26 @@ public class CurrentAssessments extends javax.swing.JFrame {
         
        return  a[i];
        
-    }
+    }*/
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCompleted;
     private javax.swing.JButton btnSave;
-    private javax.swing.JButton btnSearch;
     private static javax.swing.JComboBox<Integer> cbAssessmentID;
-    private org.jdatepicker.JDatePicker dpDateDue;
-    private org.jdatepicker.JDatePicker dpReminderDate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JList<String> lTitle;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTextArea taAssessmentDescription;
     private javax.swing.JTextPane tpAssessmentModule;
+    private javax.swing.JTextPane tpAssessmentTitle;
+    private javax.swing.JTextPane tpDateDue;
+    private javax.swing.JTextPane tpReminderDate;
     // End of variables declaration//GEN-END:variables
 }

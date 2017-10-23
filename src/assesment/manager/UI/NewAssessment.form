@@ -192,12 +192,12 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Assesment Due Date (dd/mm/yyyy)"/>
+        <Property name="text" type="java.lang.String" value="Assesment Due Date (yyyy-mm-dd)"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Reminder Date (dd/mm/yyyy)"/>
+        <Property name="text" type="java.lang.String" value="Reminder Date (yyyy-mm-dd)"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane4">

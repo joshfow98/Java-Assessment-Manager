@@ -18,7 +18,7 @@ import java.text.SimpleDateFormat;
  */
 public class NewAssesmentEngine {
     
-    static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     static String assesmentTitle, assesmentModule, assesmentDescription;
     static java.util.Date dateDue, reminderDate;
     static java.sql.Date sqlDateDue, sqlReminderDate;

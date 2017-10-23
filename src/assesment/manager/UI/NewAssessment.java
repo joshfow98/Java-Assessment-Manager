@@ -99,9 +99,9 @@ public class NewAssessment extends javax.swing.JFrame {
 
         jLabel3.setText("Assesment Description");
 
-        jLabel4.setText("Assesment Due Date (dd/mm/yyyy)");
+        jLabel4.setText("Assesment Due Date (yyyy-mm-dd)");
 
-        jLabel5.setText("Reminder Date (dd/mm/yyyy)");
+        jLabel5.setText("Reminder Date (yyyy-mm-dd)");
 
         jScrollPane4.setViewportView(tpDueDate);
 

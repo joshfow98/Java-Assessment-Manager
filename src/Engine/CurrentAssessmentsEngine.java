@@ -19,28 +19,55 @@ import assesment.manager.UI.CurrentAssessments;
 public class CurrentAssessmentsEngine {
     
     static ResultSet rs;
+    static Connection con;
+    static Statement stmnt;
+    static String SQL;
     /**
      * retrieve the ID's for each assessment to put output to be output 
      * to the 
      * */
+    public static Connection getConnection(){
+        
+       try{
+           
+           String host = "jdbc:derby://localhost:1527/assessments", uName = "assessments", uPass = "assessments";
+           con = DriverManager.getConnection(host, uName, uPass); 
+      
+       }catch (SQLException err){
+           
+           System.out.println(err.getMessage());
+           
+       }
+       
+       return con;
+       
+    }
+    
     public static int[] addIDs(){
        
+        con = getConnection();
+        
         int currentRecordNumber = 0, i = 0;
-        Assessment[] a = new Assessment[0];
-        int[] assessmentIDs = new int[0];
+        int[] assessmentID = new int[0];
         
         try{
             
-            rs.beforeFirst();
+            stmnt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            SQL = "SELECT assessment_id FROM ASSESSMENTS.ASSESSMENTS";
+            rs = stmnt.executeQuery(SQL);
             
             while(rs.next()){
                 
-                assessmentIDs = Arrays.copyOf(assessmentIDs, assessmentIDs.length + 1);
-                assessmentIDs[i] = rs.getInt("assessment_id");
-          
+                assessmentID = Arrays.copyOf(assessmentID, assessmentID.length + 1);
+                assessmentID[i] = rs.getInt("assessment_id");
+
                 i += 1;
                 
             }
+            
+            rs.close();
+            stmnt.close();
+            con.close();
             
         } catch (SQLException err){
             
@@ -48,34 +75,28 @@ public class CurrentAssessmentsEngine {
             
         }
            
-        return assessmentIDs;
+        return assessmentID;
         
     }
     
     public static int arraySize(){
         
-        Connection con;
-        Statement stmnt;
-        String SQL;
-        int currentRecordNumber = -1;
-        String host = "jdbc:derby://localhost:1527/assessments", uName = "assessments", uPass = "assessments";
+        con = getConnection();
+        int currentRecordNumber = 0;
         
         try{
             
-            con = DriverManager.getConnection(host, uName, uPass);
-            stmnt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            //stores the SQL statement to be made
-            SQL = "SELECT * FROM ASSESMENTS.ASSESMENT";
-            //stores results of the SQL statement, in this case all records
-            //from table ASSESSMENT table
+            stmnt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            SQL = "SELECT COUNT(*) FROM ASSESSMENTS.ASSESSMENTS";
             rs = stmnt.executeQuery(SQL);
             
-            while(rs.next()){
-                
-                currentRecordNumber += 1;
-                
-            }
+            rs.next();
             
+            currentRecordNumber = rs.getInt(1);
+            
+            rs.close();
+            stmnt.close();
+            con.close();
             
         } catch (SQLException err){
             
@@ -88,33 +109,99 @@ public class CurrentAssessmentsEngine {
     }
     
     public static Engine.Assessment getRecord(int assessmentID){
+       
+        con = getConnection();
+        Engine.Assessment a = new Engine.Assessment();
         
-        //Engine.Assessment record = new Engine.Assessment();
-        boolean foundRecord = false;
-        int i = -1;
+        try{
+            
+            stmnt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            SQL = "SELECT * FROM ASSESSMENTS.ASSESSMENTS WHERE assessment_id=" + assessmentID;
+            rs = stmnt.executeQuery(SQL);
+            
+            rs.next();
+            
+            a.assessmentID = rs.getInt("assessment_id");
+            a.assessmentTitle = rs.getString("assessment_title");
+            a.assessmentModule = rs.getString("assessment_module");
+            a.assessmentDescription = rs.getString("assessment_description");
+            a.dateDue = rs.getDate("date_due");
+            a.reminderDate = rs.getDate("reminder_date");
+            
+            rs.close();
+            stmnt.close();
+            con.close();
+            
+        } catch (SQLException err){
+            
+            System.out.println(err.getMessage());
+            
+        }
+       return  a;
+       
+    }
+    
+    public static void updateRecord(Engine.Assessment record){
         
-        while(foundRecord == false || i < a.length - 1){
+        con = getConnection();
+        
+        try{
             
-            i++;
+            stmnt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            SQL = "SELECT * FROM ASSESSMENTS.ASSESSMENTS WHERE assessment_id=" + record.assessmentID;
+            rs = stmnt.executeQuery(SQL);
             
-            if(a[i].assessmentID == assessmentID){
-                
-                foundRecord = true;
-               
-            }
+            rs.next();
+            
+            rs.updateInt("assessment_id", record.assessmentID);
+            rs.updateString("assessment_title", record.assessmentTitle);
+            rs.updateString("assessment_module", record.assessmentModule);
+            rs.updateString("assessment_description", record.assessmentDescription);
+            rs.updateDate("date_due", record.dateDue);
+            rs.updateDate("reminder_date", record.reminderDate);
+            rs.updateRow();
+            
+            rs.close();
+            stmnt.close();
+            con.close();
+            
+        } catch (SQLException err){
+            
+            System.out.println(err.getMessage());
             
         }
         
-       return  a[i];
-       
     }
-   /* public static Assessment getRecord(){
+    
+    public static void assessmentCompleted(int assessmentID){
         
+        con = getConnection();
+        Engine.Assessment record = new Engine.Assessment();
         
+        try{
+            
+            stmnt = con.createStatement();
+           /* SQL = "INSERT INTO ASSESSMENTS.COMPLETED_ASSESSMENTS(assessment_id,assessment_title,"
+                    + "assessment_module,assessment_description,date_due,reminder_date)"
+                    + " SELECT (assessment_id,assessment_title,"
+                    + "assessment_module,assessment_description,date_due,reminder_date) "
+                    + "FROM ASSESSMENTS.ASSESSMENTS WHERE assessment_id=" + assessmentID;*/
+            SQL = "INSERT INTO ASSESSMENTS.COMPLETED_ASSESSMENTS SELECT * FROM ASSESSMENTS.ASSESSMENTS WHERE assessment_id=" + assessmentID;
+            stmnt.executeUpdate(SQL);
+            
+            SQL = "DELETE FROM ASSESSMENTS.ASSESSMENTS WHERE assessment_id =" + assessmentID;
+            stmnt.executeUpdate(SQL);
+           
+            rs.close();
+            stmnt.close();
+            con.close();
+            
+        } catch (SQLException err){
+            
+            System.out.println(err.getMessage());
+            
+        }
         
-        Assessment a = new Assessment();
-        
-        return Assessment;
-        
-    }*/
+    }
+    
 }

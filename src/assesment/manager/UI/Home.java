@@ -100,9 +100,10 @@ public class Home extends javax.swing.JFrame {
     //opens the current assesments form and hides current form
     private void btnCurrentAssesmentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCurrentAssesmentsActionPerformed
         
-        CurrentAssesments ca = new CurrentAssesments();
+        CurrentAssessments ca = new CurrentAssessments();
         
         ca.setVisible(true);
+        ca.addAssessmentTitle();
         this.dispose();
         
     }//GEN-LAST:event_btnCurrentAssesmentsActionPerformed

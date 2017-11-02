@@ -18,14 +18,15 @@ import java.text.SimpleDateFormat;
  */
 public class NewAssesmentEngine {
     
-    static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-    static String assesmentTitle, assesmentModule, assesmentDescription;
-    static java.util.Date dateDue, reminderDate;
-    static java.sql.Date sqlDateDue, sqlReminderDate;
-    static Connection con;
-    static Statement stmnt;
-    static ResultSet rs;
-    static String SQL;
+    private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    private static String assesmentTitle, assesmentModule, assesmentDescription;
+    private static java.util.Date dateDue, reminderDate;
+    private static java.sql.Date sqlDateDue, sqlReminderDate;
+    private static Connection con;
+    private static Statement stmnt;
+    private static ResultSet rs;
+    private static String SQL;
+    
     //assigns all the assesment info when instance of class occurs
     public NewAssesmentEngine(String assesmentTitle, String assesmentModule, String assesmentDescription, String dateDue, String reminderDate){
         

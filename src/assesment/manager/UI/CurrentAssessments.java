@@ -198,18 +198,18 @@ public class CurrentAssessments extends javax.swing.JFrame {
             
         }*/
     }//GEN-LAST:event_cbAssessmentIDActionPerformed
-
+    
     private void cbAssessmentIDItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbAssessmentIDItemStateChanged
         
-        Engine.Assessment record = new Engine.Assessment();
+        Engine.Assessment a = new Engine.Assessment();
         Calendar cal = Calendar.getInstance();
-        record = Engine.CurrentAssessmentsEngine.getRecord((int) cbAssessmentID.getSelectedItem());
+        a = Engine.CurrentAssessmentsEngine.getRecord((int) cbAssessmentID.getSelectedItem());
       
-        tpAssessmentTitle.setText(record.assessmentTitle);
-        tpAssessmentModule.setText(record.assessmentModule);
-        taAssessmentDescription.setText(record.assessmentDescription);
-        tpDateDue.setText(record.dateDue.toString());
-        tpReminderDate.setText(record.reminderDate.toString());
+        tpAssessmentTitle.setText(a.getTitle());
+        tpAssessmentModule.setText(a.getModule());
+        taAssessmentDescription.setText(a.getDescription());
+        tpDateDue.setText(a.getDue().toString());
+        tpReminderDate.setText(a.getDate().toString());
         
         //section underneither useful for JDatePicker, maybe implement later
         /*cal.setTime(record.dateDue);
@@ -227,17 +227,18 @@ public class CurrentAssessments extends javax.swing.JFrame {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         
-        Engine.Assessment record = new Engine.Assessment();
+        Engine.Assessment a = new Engine.Assessment();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         
-        record.assessmentID = (int) cbAssessmentID.getSelectedItem();
-        record.assessmentTitle = tpAssessmentTitle.getText();
-        record.assessmentModule = tpAssessmentModule.getText();
-        record.assessmentDescription = taAssessmentDescription.getText();
+        a.setID((int) cbAssessmentID.getSelectedItem());
+        a.setTitle(tpAssessmentTitle.getText());
+        a.setModule(tpAssessmentModule.getText());
+        a.setDescription(taAssessmentDescription.getText());
+        
         try{
             
-            record.dateDue = new java.sql.Date(sdf.parse(tpDateDue.getText()).getTime());
-            record.reminderDate = new java.sql.Date(sdf.parse(tpReminderDate.getText()).getTime());
+            a.setDue(new java.sql.Date(sdf.parse(tpDateDue.getText()).getTime()));
+            a.setDate(new java.sql.Date(sdf.parse(tpReminderDate.getText()).getTime()));
             
         } catch (ParseException e){
             
@@ -245,7 +246,7 @@ public class CurrentAssessments extends javax.swing.JFrame {
             
         }
         
-        Engine.CurrentAssessmentsEngine.updateRecord(record);
+        Engine.CurrentAssessmentsEngine.updateRecord(a);
         
     }//GEN-LAST:event_btnSaveActionPerformed
 

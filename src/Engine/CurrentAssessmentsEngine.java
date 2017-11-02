@@ -46,7 +46,6 @@ public class CurrentAssessmentsEngine {
     public static int[] addIDs(){
        
         con = getConnection();
-        
         int currentRecordNumber = 0, i = 0;
         int[] assessmentID = new int[0];
         
@@ -120,13 +119,14 @@ public class CurrentAssessmentsEngine {
             rs = stmnt.executeQuery(SQL);
             
             rs.next();
+           
+            a.setID(rs.getInt("assessment_id"));
+            a.setTitle(rs.getString("assessment_title"));
+            a.setModule(rs.getString("assessment_module"));
+            a.setDescription(rs.getString("assessment_description"));
+            a.setDue(rs.getDate("date_due"));
+            a.setDate(rs.getDate("reminder_date"));
             
-            a.assessmentID = rs.getInt("assessment_id");
-            a.assessmentTitle = rs.getString("assessment_title");
-            a.assessmentModule = rs.getString("assessment_module");
-            a.assessmentDescription = rs.getString("assessment_description");
-            a.dateDue = rs.getDate("date_due");
-            a.reminderDate = rs.getDate("reminder_date");
             
             rs.close();
             stmnt.close();
@@ -137,28 +137,29 @@ public class CurrentAssessmentsEngine {
             System.out.println(err.getMessage());
             
         }
+        
        return  a;
        
     }
     
-    public static void updateRecord(Engine.Assessment record){
+    public static void updateRecord(Engine.Assessment a){
         
         con = getConnection();
         
         try{
             
             stmnt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            SQL = "SELECT * FROM ASSESSMENTS.ASSESSMENTS WHERE assessment_id=" + record.assessmentID;
+            SQL = "SELECT * FROM ASSESSMENTS.ASSESSMENTS WHERE assessment_id=" + a.getID();
             rs = stmnt.executeQuery(SQL);
             
             rs.next();
             
-            rs.updateInt("assessment_id", record.assessmentID);
-            rs.updateString("assessment_title", record.assessmentTitle);
-            rs.updateString("assessment_module", record.assessmentModule);
-            rs.updateString("assessment_description", record.assessmentDescription);
-            rs.updateDate("date_due", record.dateDue);
-            rs.updateDate("reminder_date", record.reminderDate);
+            rs.updateInt("assessment_id", a.getID());
+            rs.updateString("assessment_title", a.getTitle());
+            rs.updateString("assessment_module", a.getModule());
+            rs.updateString("assessment_description", a.getDescription());
+            rs.updateDate("date_due", a.getDue());
+            rs.updateDate("reminder_date", a.getDate());
             rs.updateRow();
             
             rs.close();

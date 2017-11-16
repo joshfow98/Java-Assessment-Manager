@@ -42,10 +42,10 @@
                                   <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="btnClear" min="-2" pref="120" max="-2" attributes="0"/>
-                                  <Component id="btnAdd" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnExit" min="-2" pref="120" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="btnAdd" max="32767" attributes="0"/>
+                                  <Component id="btnClear" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="btnExit" alignment="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -107,7 +107,8 @@
   <SubComponents>
     <Component class="javax.swing.JButton" name="btnAdd">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Add Assesment"/>
+        <Property name="text" type="java.lang.String" value="Add Assessment"/>
+        <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddActionPerformed"/>
@@ -136,7 +137,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTextPane" name="tpAssesmentTitle">
+        <Component class="javax.swing.JTextPane" name="tpAssessmentTitle">
         </Component>
       </SubComponents>
     </Container>
@@ -147,7 +148,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTextPane" name="tpAssesmentModule">
+        <Component class="javax.swing.JTextPane" name="tpAssessmentModule">
         </Component>
       </SubComponents>
     </Container>
@@ -158,7 +159,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTextArea" name="taAssesmentDescription">
+        <Component class="javax.swing.JTextArea" name="taAssessmentDescription">
           <Properties>
             <Property name="columns" type="int" value="20"/>
             <Property name="rows" type="int" value="5"/>
@@ -177,22 +178,22 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Assesment Name"/>
+        <Property name="text" type="java.lang.String" value="Assessment Name"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Assesment Module"/>
+        <Property name="text" type="java.lang.String" value="Assessment Module"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Assesment Description"/>
+        <Property name="text" type="java.lang.String" value="Assessment Description"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Assesment Due Date (yyyy-mm-dd)"/>
+        <Property name="text" type="java.lang.String" value="Assessment Due Date (yyyy-mm-dd)"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">

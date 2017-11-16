@@ -5,43 +5,24 @@
  */
 package Engine;
 
+import static Engine.CurrentAssessmentsEngine.con;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Arrays;
-import assesment.manager.UI.CurrentAssessments;
+
 /**
  *
  * @author joshf
  */
-public class CurrentAssessmentsEngine {
+public class CompletedAssessmentsEngine {
     
-    static ResultSet rs;
     static Connection con;
     static Statement stmnt;
     static String SQL;
-    /**
-     * retrieve the ID's for each assessment to put output to be output 
-     * to the 
-     * */
-    public static Connection getConnection(){
-        
-       try{
-           
-           String host = "jdbc:derby://localhost:1527/assessments", uName = "assessments", uPass = "assessments";
-           con = DriverManager.getConnection(host, uName, uPass); 
-      
-       }catch (SQLException err){
-           
-           System.out.println(err.getMessage());
-           
-       }
-       
-       return con;
-       
-    }
+    static ResultSet rs;
     
     public static String[] addIDs(){
        
@@ -55,7 +36,7 @@ public class CurrentAssessmentsEngine {
             con = DriverManager.getConnection(host, uName, uPass);
             
             stmnt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            SQL = "SELECT assessment_id FROM ASSESSMENTS.ASSESSMENTS";
+            SQL = "SELECT assessment_id FROM ASSESSMENTS.COMPLETED_ASSESSMENTS";
             rs = stmnt.executeQuery(SQL);
             
             while(rs.next()){
@@ -81,37 +62,6 @@ public class CurrentAssessmentsEngine {
         
     }
     
-    /*public static int arraySize(){
-        
-        //con = getConnection();
-        int currentRecordNumber = 0;
-        
-        try{
-            
-            String host = "jdbc:derby://localhost:1527/assessments", uName = "assessments", uPass = "assessments";
-            con = DriverManager.getConnection(host, uName, uPass);
-            stmnt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            SQL = "SELECT COUNT(*) FROM ASSESSMENTS.ASSESSMENTS";
-            rs = stmnt.executeQuery(SQL);
-            
-            rs.next();
-            
-            currentRecordNumber = rs.getInt(1);
-            
-            rs.close();
-            stmnt.close();
-            con.close();
-            
-        } catch (SQLException err){
-            
-            System.out.println(err.getMessage());
-            
-        }
-        
-        return currentRecordNumber;
-        
-    }*/
-    
     public static Engine.Assessment getRecord(String assessmentID){
        
         //con = getConnection();
@@ -123,7 +73,7 @@ public class CurrentAssessmentsEngine {
             con = DriverManager.getConnection(host, uName, uPass);
             
             stmnt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            SQL = "SELECT * FROM ASSESSMENTS.ASSESSMENTS WHERE assessment_id='" + assessmentID + "'";
+            SQL = "SELECT * FROM ASSESSMENTS.COMPLETED_ASSESSMENTS WHERE assessment_id='" + assessmentID + "'";
             rs = stmnt.executeQuery(SQL);
             
             rs.next();
@@ -150,56 +100,19 @@ public class CurrentAssessmentsEngine {
        
     }
     
-    public static void updateRecord(Engine.Assessment a, String newID){
-        
-        //con = getConnection();
-        
-        try{
-            String host = "jdbc:derby://localhost:1527/assessments", uName = "assessments", uPass = "assessments";
-            con = DriverManager.getConnection(host, uName, uPass);
-            
-            stmnt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            SQL = "SELECT * FROM ASSESSMENTS.ASSESSMENTS WHERE assessment_id='" + a.getID() + "'";
-            rs = stmnt.executeQuery(SQL);
-            
-            rs.next();
-            
-            rs.updateString("assessment_id", newID);
-            rs.updateString("assessment_title", a.getTitle());
-            rs.updateString("assessment_module", a.getModule());
-            rs.updateString("assessment_description", a.getDescription());
-            rs.updateDate("date_due", a.getDue());
-            rs.updateDate("reminder_date", a.getDate());
-            rs.updateRow();
-            
-            rs.close();
-            stmnt.close();
-            con.close();
-            
-        } catch (SQLException err){
-            
-            System.out.println(err.getMessage());
-            
-        }
-        
-    }
-    
-    public static void assessmentCompleted(String assessmentID){
-
-        Engine.Assessment a = new Engine.Assessment();
+    public static void assessmentUncompleted(String assessmentID){
         
         try{
             String host = "jdbc:derby://localhost:1527/assessments", uName = "assessments", uPass = "assessments";
             con = DriverManager.getConnection(host, uName, uPass);
             
             stmnt = con.createStatement();
-            SQL = "INSERT INTO ASSESSMENTS.COMPLETED_ASSESSMENTS SELECT * FROM ASSESSMENTS.ASSESSMENTS WHERE assessment_id='" 
+            SQL = "INSERT INTO ASSESSMENTS.ASSESSMENTS SELECT * FROM ASSESSMENTS.COMPLETED_ASSESSMENTS WHERE assessment_id='" 
                     + assessmentID + "'";
             stmnt.executeUpdate(SQL);
-            SQL = "DELETE FROM ASSESSMENTS.ASSESSMENTS WHERE assessment_id ='" + assessmentID + "'";
+            SQL = "DELETE FROM ASSESSMENTS.COMPLETED_ASSESSMENTS WHERE assessment_id ='" + assessmentID + "'";
             stmnt.executeUpdate(SQL);
             
-            rs.close();
             stmnt.close();
             con.close();
             

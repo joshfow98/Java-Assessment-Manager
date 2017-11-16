@@ -113,6 +113,7 @@ public class Home extends javax.swing.JFrame {
         CompletedAssessments ca = new CompletedAssessments();
         
         ca.setVisible(true);
+        ca.addAssessmentTitle();
         this.dispose();
         
     }//GEN-LAST:event_btnCompletedAssesmentsActionPerformed

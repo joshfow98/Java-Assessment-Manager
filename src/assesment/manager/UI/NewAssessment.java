@@ -5,7 +5,7 @@
  */
 package assesment.manager.UI;
 
-import Engine.NewAssesmentEngine;
+import Engine.NewAssessmentEngine;
 
 /**
  *
@@ -34,11 +34,11 @@ public class NewAssessment extends javax.swing.JFrame {
         btnClear = new javax.swing.JButton();
         btnExit = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tpAssesmentTitle = new javax.swing.JTextPane();
+        tpAssessmentTitle = new javax.swing.JTextPane();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tpAssesmentModule = new javax.swing.JTextPane();
+        tpAssessmentModule = new javax.swing.JTextPane();
         jScrollPane3 = new javax.swing.JScrollPane();
-        taAssesmentDescription = new javax.swing.JTextArea();
+        taAssessmentDescription = new javax.swing.JTextArea();
         cbReminder = new javax.swing.JCheckBox();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -52,7 +52,8 @@ public class NewAssessment extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        btnAdd.setText("Add Assesment");
+        btnAdd.setText("Add Assessment");
+        btnAdd.setToolTipText("");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddActionPerformed(evt);
@@ -73,13 +74,13 @@ public class NewAssessment extends javax.swing.JFrame {
             }
         });
 
-        jScrollPane1.setViewportView(tpAssesmentTitle);
+        jScrollPane1.setViewportView(tpAssessmentTitle);
 
-        jScrollPane2.setViewportView(tpAssesmentModule);
+        jScrollPane2.setViewportView(tpAssessmentModule);
 
-        taAssesmentDescription.setColumns(20);
-        taAssesmentDescription.setRows(5);
-        jScrollPane3.setViewportView(taAssesmentDescription);
+        taAssessmentDescription.setColumns(20);
+        taAssessmentDescription.setRows(5);
+        jScrollPane3.setViewportView(taAssessmentDescription);
 
         cbReminder.setText("Do you wish to have a reminder?");
         cbReminder.addActionListener(new java.awt.event.ActionListener() {
@@ -93,13 +94,13 @@ public class NewAssessment extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Assesment Name");
+        jLabel1.setText("Assessment Name");
 
-        jLabel2.setText("Assesment Module");
+        jLabel2.setText("Assessment Module");
 
-        jLabel3.setText("Assesment Description");
+        jLabel3.setText("Assessment Description");
 
-        jLabel4.setText("Assesment Due Date (yyyy-mm-dd)");
+        jLabel4.setText("Assessment Due Date (yyyy-mm-dd)");
 
         jLabel5.setText("Reminder Date (yyyy-mm-dd)");
 
@@ -129,10 +130,10 @@ public class NewAssessment extends javax.swing.JFrame {
                                     .addComponent(jLabel3)
                                     .addComponent(jLabel4))
                                 .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnAdd)
-                                    .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btnAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnClear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnExit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -185,9 +186,9 @@ public class NewAssessment extends javax.swing.JFrame {
         String assesmentTitle = "", assesmentModule = "", assesmentDescription = "", dateDue = "", reminderDate = "";
         Boolean checkBoxReminder = false;
         
-        assesmentTitle = tpAssesmentTitle.getText();
-        assesmentModule = tpAssesmentModule.getText();
-        assesmentDescription = taAssesmentDescription.getText();
+        assesmentTitle = tpAssessmentTitle.getText();
+        assesmentModule = tpAssessmentModule.getText();
+        assesmentDescription = taAssessmentDescription.getText();
         dateDue = tpDueDate.getText();
         if(cbReminder.isSelected() == true){
            
@@ -199,9 +200,17 @@ public class NewAssessment extends javax.swing.JFrame {
             
         }
         
-        NewAssesmentEngine nae = new NewAssesmentEngine(assesmentTitle, assesmentModule, assesmentDescription, dateDue, reminderDate);
+        NewAssessmentEngine nae = new NewAssessmentEngine(assesmentTitle, assesmentModule, assesmentDescription, dateDue, reminderDate);
         
-        nae.storeAssesment();
+        
+        
+        tpAssessmentTitle.setText("");
+        tpAssessmentModule.setText("");
+        taAssessmentDescription.setText("");
+        tpDueDate.setText("");
+        tpReminderDate.setText("");
+        cbReminder.setSelected(false);
+        tpReminderDate.setVisible(false);
         
     }//GEN-LAST:event_btnAddActionPerformed
 
@@ -225,9 +234,9 @@ public class NewAssessment extends javax.swing.JFrame {
     //clears all text, dates and resets check box
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
         
-        tpAssesmentTitle.setText("");
-        tpAssesmentModule.setText("");
-        taAssesmentDescription.setText("");
+        tpAssessmentTitle.setText("");
+        tpAssessmentModule.setText("");
+        taAssessmentDescription.setText("");
         tpDueDate.setText("");
         tpReminderDate.setText("");
         cbReminder.setSelected(false);
@@ -297,9 +306,9 @@ public class NewAssessment extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JTextArea taAssesmentDescription;
-    private javax.swing.JTextPane tpAssesmentModule;
-    private javax.swing.JTextPane tpAssesmentTitle;
+    private javax.swing.JTextArea taAssessmentDescription;
+    private javax.swing.JTextPane tpAssessmentModule;
+    private javax.swing.JTextPane tpAssessmentTitle;
     private javax.swing.JTextPane tpDueDate;
     private javax.swing.JTextPane tpReminderDate;
     // End of variables declaration//GEN-END:variables

@@ -7,6 +7,7 @@ package assesment.manager.UI;
 
 import Engine.CurrentAssessmentsEngine;
 import java.sql.Connection;
+import java.util.Date;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -58,6 +59,7 @@ public class CurrentAssessments extends javax.swing.JFrame {
         tpDateDue = new javax.swing.JTextPane();
         jScrollPane5 = new javax.swing.JScrollPane();
         tpReminderDate = new javax.swing.JTextPane();
+        btnExit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -110,6 +112,13 @@ public class CurrentAssessments extends javax.swing.JFrame {
 
         jScrollPane5.setViewportView(tpReminderDate);
 
+        btnExit.setText("Exit");
+        btnExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExitActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -137,9 +146,14 @@ public class CurrentAssessments extends javax.swing.JFrame {
                                 .addComponent(cbAssessmentID, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnCompleted, javax.swing.GroupLayout.Alignment.TRAILING))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(btnCompleted))
+                            .addComponent(btnExit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -155,9 +169,14 @@ public class CurrentAssessments extends javax.swing.JFrame {
                     .addComponent(jLabel6)
                     .addComponent(btnCompleted))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnExit)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -201,27 +220,18 @@ public class CurrentAssessments extends javax.swing.JFrame {
     
     private void cbAssessmentIDItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbAssessmentIDItemStateChanged
         
-        Engine.Assessment a = new Engine.Assessment();
+        /*Engine.Assessment a = new Engine.Assessment();
         Calendar cal = Calendar.getInstance();
-        a = Engine.CurrentAssessmentsEngine.getRecord((int) cbAssessmentID.getSelectedItem());
-      
+        a = Engine.CurrentAssessmentsEngine.getRecord(String.valueOf(cbAssessmentID.getSelectedItem()));
+        
         tpAssessmentTitle.setText(a.getTitle());
         tpAssessmentModule.setText(a.getModule());
         taAssessmentDescription.setText(a.getDescription());
         tpDateDue.setText(a.getDue().toString());
-        tpReminderDate.setText(a.getDate().toString());
+        tpReminderDate.setText(a.getDate().toString());*/
         
-        //section underneither useful for JDatePicker, maybe implement later
-        /*cal.setTime(record.dateDue);
-        dpDateDue.getModel().setDay(cal.get(Calendar.DATE));
-        dpDateDue.getModel().setMonth(cal.get(Calendar.MONTH));
-        dpDateDue.getModel().setYear(cal.get(Calendar.YEAR));
-        dpDateDue.getModel().setSelected(true);
-        cal.setTime(record.reminderDate);
-        dpReminderDate.getModel().setDay(cal.get(Calendar.DATE));
-        dpReminderDate.getModel().setMonth(cal.get(Calendar.MONTH));
-        dpReminderDate.getModel().setYear(cal.get(Calendar.YEAR));
-        dpReminderDate.getModel().setSelected(true);*/
+        getCurrentRecord();
+        
         
     }//GEN-LAST:event_cbAssessmentIDItemStateChanged
 
@@ -229,16 +239,21 @@ public class CurrentAssessments extends javax.swing.JFrame {
         
         Engine.Assessment a = new Engine.Assessment();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String newID = tpAssessmentTitle.getText() + tpAssessmentModule.getText();
+        Date dueDate, reminderDate;
         
-        a.setID((int) cbAssessmentID.getSelectedItem());
+        a.setID(String.valueOf(cbAssessmentID.getSelectedItem()));
         a.setTitle(tpAssessmentTitle.getText());
         a.setModule(tpAssessmentModule.getText());
         a.setDescription(taAssessmentDescription.getText());
         
         try{
             
-            a.setDue(new java.sql.Date(sdf.parse(tpDateDue.getText()).getTime()));
-            a.setDate(new java.sql.Date(sdf.parse(tpReminderDate.getText()).getTime()));
+            dueDate = sdf.parse(tpDateDue.getText());
+            reminderDate = sdf.parse(tpReminderDate.getText());
+            
+            a.setDue(new java.sql.Date(dueDate.getTime()));
+            a.setDate(new java.sql.Date(reminderDate.getTime()));
             
         } catch (ParseException e){
             
@@ -246,17 +261,53 @@ public class CurrentAssessments extends javax.swing.JFrame {
             
         }
         
-        Engine.CurrentAssessmentsEngine.updateRecord(a);
+        Engine.CurrentAssessmentsEngine.updateRecord(a, newID);
+        //removes the old ID and sets the new one
+        //only used if assesment title or module is changed 
+        if(!newID.equals(cbAssessmentID.getSelectedItem())){
+        
+            int removeSelectedID = cbAssessmentID.getSelectedIndex();
+            cbAssessmentID.removeItemAt(removeSelectedID);
+        
+            cbAssessmentID.addItem(newID);
+        
+        }
         
     }//GEN-LAST:event_btnSaveActionPerformed
-
+    
+    public void getCurrentRecord(){
+        
+        Engine.Assessment a = new Engine.Assessment();
+        Calendar cal = Calendar.getInstance();
+        a = Engine.CurrentAssessmentsEngine.getRecord(String.valueOf(cbAssessmentID.getSelectedItem()));
+        
+        tpAssessmentTitle.setText(a.getTitle());
+        tpAssessmentModule.setText(a.getModule());
+        taAssessmentDescription.setText(a.getDescription());
+        tpDateDue.setText(a.getDue().toString());
+        tpReminderDate.setText(a.getDate().toString());
+        
+    }
+    
     private void btnCompletedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompletedActionPerformed
         
-        int assessmentID = (int) cbAssessmentID.getSelectedItem();
+        String assessmentID = String.valueOf(cbAssessmentID.getSelectedItem());
         
         Engine.CurrentAssessmentsEngine.assessmentCompleted(assessmentID);
         
+        int removeSelectedID = cbAssessmentID.getSelectedIndex();
+        cbAssessmentID.removeItemAt(removeSelectedID);
+        
     }//GEN-LAST:event_btnCompletedActionPerformed
+
+    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
+       
+        Home h = new Home();
+        
+        h.setVisible(true);
+        this.dispose();
+        
+    }//GEN-LAST:event_btnExitActionPerformed
 
     /**
      * @param args the command line arguments
@@ -291,7 +342,7 @@ public class CurrentAssessments extends javax.swing.JFrame {
             public void run() {
 
                 new CurrentAssessments().setVisible(true);
-                
+                addAssessmentTitle();
             }
         });
         
@@ -301,7 +352,7 @@ public class CurrentAssessments extends javax.swing.JFrame {
     public static void addAssessmentTitle(){
         
         CurrentAssessmentsEngine cae = new CurrentAssessmentsEngine();
-        int[] assessmentIDs = new int[cae.arraySize() - 1];
+        String[] assessmentIDs;
         
         assessmentIDs = cae.addIDs();
 
@@ -336,8 +387,9 @@ public class CurrentAssessments extends javax.swing.JFrame {
     }*/
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCompleted;
+    private javax.swing.JButton btnExit;
     private javax.swing.JButton btnSave;
-    private static javax.swing.JComboBox<Integer> cbAssessmentID;
+    private static javax.swing.JComboBox<String> cbAssessmentID;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

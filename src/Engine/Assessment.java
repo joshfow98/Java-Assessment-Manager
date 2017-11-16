@@ -13,7 +13,7 @@ import java.sql.Date;
  */
 public class Assessment {
     
-    private int assessmentID;
+    private String assessmentID;
     private String assessmentTitle;
     private String assessmentModule;
     private String assessmentDescription;
@@ -34,7 +34,7 @@ public class Assessment {
      * This sets the assessment ID.
      * @param ID 
      */
-    public void setID(int ID){
+    public void setID(String ID){
         
         assessmentID =ID;
         
@@ -88,7 +88,7 @@ public class Assessment {
      * This returns the assessment ID.
      * @return 
      */
-    public int getID(){
+    public String getID(){
         
         return assessmentID;
         
